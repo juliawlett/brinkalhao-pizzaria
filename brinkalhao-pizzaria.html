@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ff4d00" />
+  <title>Brinkalhão Pizzaria | Rodízio, Delivery e Diversão</title>
+  <meta name="description" content="Brinkalhão Pizzaria: rodízio, delivery, playground e muita diversão para toda a família." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fffaf3;
+      --surface:#ffffff;
+      --surface-2:#fff2df;
+      --ink:#2b1b14;
+      --muted:#735f55;
+      --orange:#ff4d00;
+      --orange-2:#ff7a00;
+      --yellow:#ffd72e;
+      --green:#17b26a;
+      --red:#ea3d35;
+      --line:#f1dfd2;
+      --shadow:0 18px 60px rgba(66, 31, 10, .12);
+      --shadow-soft:0 10px 30px rgba(66, 31, 10, .08);
+      --radius:28px;
+      --radius-sm:18px;
+      --container:min(1180px, calc(100% - 34px));
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:'Inter',sans-serif;
+      overflow-x:hidden;
+    }
+    body.modal-open{overflow:hidden}
+
+    h1,h2,h3,.brand,.display{
+      font-family:'Baloo 2',sans-serif;
+      letter-spacing:-.03em;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+
+    .container{width:var(--container);margin:auto}
+    .section{padding:104px 0}
+    .section-head{max-width:760px;margin-bottom:42px}
+    .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 13px;
+      border-radius:999px;
+      background:#fff1e8;
+      color:var(--orange);
+      font-weight:800;
+      font-size:.78rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .section h2{
+      font-size:clamp(2rem,4vw,3.45rem);
+      line-height:1.02;
+      margin:14px 0 17px;
+      max-width:820px;
+    }
+    .section-head.center h2{margin-left:auto;margin-right:auto}
+    .section p{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:1rem;
+    }
+
+    .btn{
+      border:0;
+      border-radius:16px;
+      padding:15px 21px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      font-weight:800;
+      transition:.25s ease;
+      min-height:52px;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--orange),var(--orange-2));
+      color:#fff;
+      box-shadow:0 12px 30px rgba(255,77,0,.25);
+    }
+    .btn-light{
+      background:#fff;
+      color:var(--ink);
+      box-shadow:var(--shadow-soft);
+    }
+    .btn-dark{
+      background:var(--ink);
+      color:#fff;
+    }
+    .btn-whatsapp{
+      background:#20ba6c;
+      color:#fff;
+      box-shadow:0 12px 30px rgba(32,186,108,.22);
+    }
+
+    /* NAV */
+    .nav-wrap{
+      position:fixed;
+      top:14px;
+      left:0;
+      width:100%;
+      z-index:30;
+      pointer-events:none;
+    }
+    nav{
+      width:var(--container);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:10px 12px 10px 18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.88);
+      box-shadow:0 12px 40px rgba(63,28,7,.10);
+      backdrop-filter:blur(18px);
+      border:1px solid rgba(255,255,255,.75);
+      pointer-events:auto;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:1.55rem;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:var(--yellow);
+      transform:rotate(-6deg);
+      font-size:1.35rem;
+      box-shadow:inset 0 0 0 2px rgba(43,27,20,.06);
+    }
+    .brand span b{color:var(--orange)}
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      font-size:.92rem;
+      font-weight:700;
+      color:#5e4b43;
+    }
+    .nav-links a:hover{color:var(--orange)}
+    .nav-actions{display:flex;align-items:center;gap:9px}
+    .mobile-toggle{
+      display:none;
+      border:0;
+      background:#fff1e8;
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      font-size:1.2rem;
+    }
+
+    /* HERO */
+    .hero{
+      min-height:100svh;
+      display:grid;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+      padding:120px 0 70px;
+      background:
+        radial-gradient(circle at 15% 16%, rgba(255,215,46,.5), transparent 24%),
+        radial-gradient(circle at 86% 38%, rgba(255,77,0,.16), transparent 24%),
+        linear-gradient(180deg,#fff8eb 0%,#fffaf3 100%);
+    }
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      filter:blur(1px);
+      opacity:.75;
+      z-index:0;
+    }
+    .hero::before{
+      width:360px;height:360px;
+      right:-150px;top:80px;
+      border:50px solid rgba(255,77,0,.08);
+    }
+    .hero::after{
+      width:250px;height:250px;
+      left:-110px;bottom:30px;
+      border:42px solid rgba(255,215,46,.2);
+    }
+    .hero-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:1.03fr .97fr;
+      gap:56px;
+      align-items:center;
+    }
+    .hero-copy h1{
+      font-size:clamp(3.05rem,5.6vw,5.25rem);
+      line-height:.9;
+      margin:18px 0 22px;
+      max-width:760px;
+    }
+    .hero-copy h1 .orange{color:var(--orange)}
+    .hero-copy p{
+      max-width:640px;
+      color:var(--muted);
+      font-size:1.08rem;
+      line-height:1.7;
+      margin-bottom:28px;
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .hero-stats{
+      display:flex;
+      gap:24px;
+      flex-wrap:wrap;
+      margin-top:36px;
+    }
+    .stat strong{
+      display:block;
+      font-family:'Baloo 2',sans-serif;
+      font-size:1.5rem;
+      line-height:1;
+    }
+    .stat small{color:var(--muted);font-weight:600}
+
+    .hero-visual{
+      position:relative;
+      min-height:590px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .pizza-photo{
+      width:min(100%,535px);
+      aspect-ratio:1/1.05;
+      object-fit:cover;
+      border-radius:52px 52px 160px 52px;
+      box-shadow:0 35px 90px rgba(76,35,13,.24);
+      transform:rotate(2deg);
+    }
+    .floating-card{
+      position:absolute;
+      background:rgba(255,255,255,.96);
+      border:1px solid rgba(255,255,255,.9);
+      box-shadow:var(--shadow);
+      border-radius:20px;
+      padding:14px 16px;
+      max-width:220px;
+      animation:float 4.2s ease-in-out infinite;
+    }
+    .floating-card strong{
+      display:block;
+      font-family:'Baloo 2',sans-serif;
+      font-size:1.05rem;
+    }
+    .floating-card span{
+      font-size:.78rem;
+      color:var(--muted);
+    }
+    .fc-1{left:-22px;top:135px}
+    .fc-2{right:-8px;bottom:70px;animation-delay:-2s}
+    .fc-icon{
+      width:38px;height:38px;
+      display:grid;place-items:center;
+      border-radius:13px;
+      background:#fff2df;
+      margin-bottom:8px;
+      font-size:1.2rem;
+    }
+    @keyframes float{50%{transform:translateY(-10px) rotate(-1deg)}}
+
+    /* FEATURES */
+    .quick-badges{
+      position:relative;
+      z-index:3;
+      margin-top:-34px;
+    }
+    .quick-grid{
+      background:#fff;
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      overflow:hidden;
+    }
+    .quick-item{
+      padding:24px;
+      display:flex;
+      gap:13px;
+      align-items:center;
+      border-right:1px solid var(--line);
+    }
+    .quick-item:last-child{border-right:0}
+    .quick-icon{
+      min-width:48px;
+      height:48px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:#fff3e9;
+      font-size:1.35rem;
+    }
+    .quick-item strong{display:block;font-size:.94rem}
+    .quick-item span{font-size:.78rem;color:var(--muted)}
+
+    /* ABOUT */
+    .about-grid{
+      display:grid;
+      grid-template-columns:.93fr 1.07fr;
+      gap:62px;
+      align-items:center;
+    }
+    .photo-stack{position:relative;min-height:560px}
+    .photo-main{
+      position:absolute;
+      inset:0 58px 50px 0;
+      width:calc(100% - 58px);
+      height:calc(100% - 50px);
+      object-fit:cover;
+      border-radius:38px;
+      box-shadow:var(--shadow);
+    }
+    .photo-small{
+      position:absolute;
+      right:0;
+      bottom:0;
+      width:46%;
+      height:45%;
+      object-fit:cover;
+      border:8px solid var(--bg);
+      border-radius:30px;
+      box-shadow:var(--shadow-soft);
+    }
+    .about-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:28px;
+    }
+    .about-list .item{
+      background:#fff;
+      border:1px solid var(--line);
+      padding:16px;
+      border-radius:18px;
+      font-weight:700;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+
+
+    /* AJUSTES DE PROXIMIDADE */
+    #pedido.section{
+      padding-bottom:18px;
+    }
+
+    /* RODÍZIO — compacto e informativo */
+    .rodizio{
+      background:var(--ink);
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+      padding:76px 0;
+    }
+    .rodizio::before{
+      content:"";
+      position:absolute;
+      width:280px;
+      height:280px;
+      border-radius:50%;
+      right:-120px;
+      top:-130px;
+      background:rgba(255,77,0,.16);
+    }
+    .rodizio .container{position:relative}
+    .rodizio .eyebrow{background:rgba(255,255,255,.08);color:#ffd072}
+    .compact-intro{
+      display:grid;
+      grid-template-columns:.8fr 1.2fr;
+      gap:52px;
+      align-items:end;
+      margin-bottom:30px;
+    }
+    .compact-intro h2{
+      font-size:clamp(2.15rem,4vw,3.25rem);
+      line-height:.98;
+      margin:12px 0 0;
+    }
+    .compact-intro p{
+      margin:0;
+      max-width:620px;
+      color:#d7c8c1;
+      justify-self:end;
+    }
+    .rodizio-info-grid{
+      display:grid;
+      grid-template-columns:repeat(8,minmax(0,1fr));
+      gap:13px;
+      align-items:stretch;
+    }
+    .rodizio-info{
+      min-height:220px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:22px;
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+    .rodizio-info.taste,
+    .rodizio-info.experience,
+    .rodizio-info.promo,
+    .rodizio-info.surprise{
+      grid-column:span 2;
+    }
+    .rodizio-info::before{
+      content:"";
+      position:absolute;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      right:-42px;
+      top:-54px;
+      background:rgba(255,255,255,.055);
+      pointer-events:none;
+    }
+    .rodizio-info.taste{
+      background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,77,0,.075));
+      border-color:rgba(255,128,74,.22);
+    }
+    .rodizio-info.experience{
+      background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,215,46,.065));
+      border-color:rgba(255,215,46,.18);
+    }
+    .rodizio-info.promo{
+      background:linear-gradient(145deg,rgba(255,122,0,.17),rgba(255,77,0,.08));
+      border-color:rgba(255,178,92,.32);
+    }
+    .rodizio-info .mini-icon{
+      width:42px;
+      height:42px;
+      border-radius:13px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.09);
+      margin-bottom:15px;
+      font-size:1.1rem;
+      border:1px solid rgba(255,255,255,.07);
+    }
+    .play-mini .mini-icon{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      margin-bottom:14px;
+      font-size:1.05rem;
+    }
+    .rodizio-info h3{
+      font-size:1.24rem;
+      line-height:1.09;
+      margin:0 0 8px;
+    }
+    .rodizio-info p{
+      font-size:.84rem;
+      line-height:1.55;
+      margin:0;
+      color:#d3c3bb;
+    }
+    .rodizio-card-footer{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      margin-top:auto;
+      padding-top:15px;
+    }
+    .rodizio-chip,
+    .promo-line{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.075);
+      color:#eaded7;
+      border:1px solid rgba(255,255,255,.07);
+      font-size:.69rem;
+      font-weight:800;
+    }
+    .promo-line{
+      background:rgba(255,150,48,.13);
+      color:#ffd6ad;
+      border-color:rgba(255,178,92,.16);
+    }
+
+    .rodizio-info.surprise{
+      min-height:220px;
+      padding:22px;
+      align-items:flex-start;
+      justify-content:flex-start;
+      text-align:left;
+      background:linear-gradient(145deg,rgba(255,215,46,.15),rgba(255,255,255,.055));
+      border-color:rgba(255,215,46,.25);
+    }
+    .rodizio-info.surprise::before{
+      width:120px;
+      height:120px;
+      right:-42px;
+      top:-54px;
+    }
+    .surprise-box{
+      width:50px;
+      height:50px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,215,46,.13);
+      font-size:1.4rem;
+      animation:giftBounce 2.1s ease-in-out infinite;
+      border:1px solid rgba(255,215,46,.18);
+      margin-bottom:14px;
+      flex:none;
+    }
+    .surprise-copy h3{
+      margin:0 0 8px;
+      font-size:1.24rem;
+      line-height:1.09;
+    }
+    .surprise-copy p{
+      font-size:.84rem;
+      line-height:1.55;
+      max-width:none;
+      margin:0;
+      color:#d3c3bb;
+    }
+    .surprise-action{
+      width:100%;
+      margin-top:auto;
+      padding:11px 12px;
+      border:0;
+      border-radius:12px;
+      background:var(--yellow);
+      color:var(--ink);
+      font-size:.78rem;
+      font-weight:900;
+      transition:.22s ease;
+      box-shadow:0 10px 22px rgba(0,0,0,.12);
+    }
+    .surprise-action:hover{
+      transform:translateY(-2px) rotate(-1deg);
+    }
+    @keyframes giftBounce{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      20%{transform:translateY(-4px) rotate(-3deg)}
+      40%{transform:translateY(0) rotate(3deg)}
+      60%{transform:translateY(-3px) rotate(-2deg)}
+      80%{transform:translateY(0) rotate(2deg)}
+    }
+
+    /* PEDIDO FACIL */
+    .order-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+    .pizza-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:16px;
+      box-shadow:var(--shadow-soft);
+      transition:.28s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .pizza-card:hover{
+      transform:translateY(-7px);
+      box-shadow:var(--shadow);
+    }
+    .pizza-card img{
+      width:100%;
+      aspect-ratio:1.25/1;
+      object-fit:cover;
+      border-radius:21px;
+    }
+    .pizza-card h3{
+      font-size:1.8rem;
+      margin:17px 5px 3px;
+    }
+    .pizza-card p{
+      font-size:.9rem;
+      margin:0 5px 17px;
+      min-height:48px;
+    }
+    .pizza-meta{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:12px;
+      padding:0 5px 5px;
+    }
+    .pizza-meta small{display:block;color:var(--muted);margin-bottom:2px}
+    .price{
+      font-family:'Baloo 2',sans-serif;
+      font-weight:800;
+      color:var(--orange);
+      font-size:1.55rem;
+    }
+    .tag{
+      position:absolute;
+      top:28px;
+      left:28px;
+      background:var(--yellow);
+      color:var(--ink);
+      padding:8px 11px;
+      border-radius:12px;
+      font-size:.74rem;
+      font-weight:800;
+      box-shadow:0 8px 18px rgba(0,0,0,.08);
+    }
+
+
+
+    /* DELIVERY — mais próximo do pedido */
+    .delivery-section{
+      padding:12px 0 96px;
+    }
+    .delivery-strip{
+      display:grid;
+      grid-template-columns:1.05fr 1.25fr auto;
+      gap:28px;
+      align-items:center;
+      padding:28px 30px;
+      border-radius:24px;
+      background:linear-gradient(135deg,#ff4d00,#ff7900);
+      color:#fff;
+      box-shadow:0 18px 48px rgba(255,77,0,.15);
+    }
+    .delivery-strip .eyebrow{
+      background:rgba(255,255,255,.16);
+      color:#fff;
+    }
+    .delivery-strip h2{
+      font-size:clamp(1.95rem,3.5vw,2.75rem);
+      line-height:1;
+      margin:10px 0 0;
+    }
+    .delivery-steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+    .delivery-step{
+      min-height:84px;
+      padding:13px;
+      border-radius:15px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .delivery-step strong{
+      display:block;
+      font-size:.84rem;
+      margin-bottom:4px;
+    }
+    .delivery-step span{
+      display:block;
+      font-size:.75rem;
+      line-height:1.4;
+      opacity:.82;
+    }
+
+    /* PLAYGROUND — com imagens simples */
+    .playground-section{
+      padding:62px 0;
+      background:#fff2df;
+      border-top:1px solid #f3dcc9;
+      border-bottom:1px solid #f3dcc9;
+    }
+    .playground-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:30px;
+      margin-bottom:16px;
+    }
+    .playground-head h2{
+      font-size:clamp(1.85rem,3.2vw,2.55rem);
+      line-height:1;
+      max-width:580px;
+      margin:12px 0 0;
+    }
+    .playground-head p{
+      max-width:470px;
+      margin:0;
+    }
+    .playground-gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .play-thumb{
+      position:relative;
+      height:118px;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid var(--line);
+      box-shadow:0 8px 22px rgba(66,31,10,.07);
+      background:#fff;
+    }
+    .play-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .35s ease;
+    }
+    .play-thumb:hover img{
+      transform:scale(1.045);
+    }
+    .play-callout{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      background:rgba(255,255,255,.94);
+      color:var(--ink);
+      padding:7px 9px;
+      border-radius:10px;
+      font-size:.7rem;
+      font-weight:800;
+      box-shadow:0 6px 16px rgba(0,0,0,.1);
+    }
+    .playground-mini-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:0;
+    }
+    .play-mini{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      min-height:128px;
+    }
+    .play-mini .mini-icon{
+      background:#fff3e9;
+      width:36px;
+      height:36px;
+      margin-bottom:10px;
+    }
+    .play-mini h3{
+      font-size:1.05rem;
+      margin:0 0 5px;
+    }
+    .play-mini p{
+      font-size:.8rem;
+      line-height:1.48;
+      margin:0;
+    }
+
+    /* LOCATION */
+    .location-grid{
+      display:grid;
+      grid-template-columns:.82fr 1.18fr;
+      gap:24px;
+    }
+    .location-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:30px;
+    }
+    .location-card h3{font-size:2rem;margin:0 0 14px}
+    .loc-row{
+      display:flex;
+      gap:13px;
+      margin:18px 0;
+      color:var(--muted);
+      line-height:1.5;
+    }
+    .map-placeholder{
+      min-height:420px;
+      border-radius:28px;
+      background:
+        linear-gradient(rgba(255,255,255,.76),rgba(255,255,255,.76)),
+        url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=1400&q=85') center/cover;
+      border:1px solid var(--line);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .map-pin{
+      width:88px;height:88px;
+      border-radius:30px 30px 30px 8px;
+      transform:rotate(-45deg);
+      background:var(--orange);
+      display:grid;place-items:center;
+      box-shadow:0 16px 35px rgba(255,77,0,.3);
+    }
+    .map-pin span{transform:rotate(45deg);font-size:2rem}
+
+    /* FOOTER */
+    footer{
+      background:#21140f;
+      color:#fff;
+      padding:58px 0 30px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.3fr .7fr .7fr;
+      gap:38px;
+      margin-bottom:40px;
+    }
+    footer p,footer a{color:#bea9a0}
+    footer h4{font-family:'Baloo 2',sans-serif;font-size:1.2rem;margin:0 0 12px}
+    .footer-links{display:grid;gap:9px}
+    .footer-bottom{
+      padding-top:24px;
+      border-top:1px solid rgba(255,255,255,.1);
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      font-size:.8rem;
+      color:#9d8b83;
+    }
+
+    /* WHATSAPP FIXO */
+    .whatsapp-float{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:40;
+      width:62px;
+      height:62px;
+      border-radius:21px;
+      display:grid;
+      place-items:center;
+      border:0;
+      background:#20ba6c;
+      color:#fff;
+      font-size:1.6rem;
+      box-shadow:0 18px 42px rgba(32,186,108,.3);
+      transition:.2s ease;
+    }
+    .whatsapp-float:hover{transform:translateY(-3px) rotate(-4deg)}
+
+    /* MODAL PEDIDO */
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:70;
+      display:none;
+      place-items:center;
+      padding:20px;
+      background:rgba(22,11,6,.62);
+      backdrop-filter:blur(9px);
+    }
+    .modal.active{display:grid}
+    .modal-box{
+      width:min(720px,100%);
+      max-height:90vh;
+      overflow:auto;
+      background:#fffdf9;
+      border-radius:30px;
+      padding:28px;
+      box-shadow:0 35px 100px rgba(0,0,0,.26);
+      position:relative;
+      animation:modalIn .32s ease;
+    }
+    @keyframes modalIn{
+      from{opacity:0;transform:translateY(18px) scale(.97)}
+      to{opacity:1;transform:none}
+    }
+    .modal-close{
+      position:absolute;
+      right:18px;
+      top:18px;
+      width:42px;height:42px;
+      border:0;border-radius:14px;
+      background:#fff1e8;
+      font-size:1.2rem;
+    }
+    .modal-head{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      padding-right:48px;
+    }
+    .modal-head img{
+      width:118px;
+      height:100px;
+      object-fit:cover;
+      border-radius:19px;
+    }
+    .modal-head h3{font-size:2rem;margin:0}
+    .modal-head p{margin:3px 0;color:var(--muted)}
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:24px;
+    }
+    .field{display:grid;gap:7px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:.82rem;font-weight:800;color:#5e4a40}
+    .field input,.field select,.field textarea{
+      width:100%;
+      border:1px solid #ead8cc;
+      background:#fff;
+      border-radius:15px;
+      padding:14px 15px;
+      color:var(--ink);
+      outline:none;
+    }
+    .field input:focus,.field select:focus,.field textarea:focus{
+      border-color:#ff9c66;
+      box-shadow:0 0 0 4px rgba(255,77,0,.08);
+    }
+    .emit-btn{
+      width:100%;
+      margin-top:18px;
+      border:0;
+      border-radius:18px;
+      min-height:58px;
+      padding:15px 20px;
+      font-weight:900;
+      color:#fff;
+      background:linear-gradient(135deg,var(--orange),#ff8c00);
+      box-shadow:0 14px 32px rgba(255,77,0,.25);
+      position:relative;
+      overflow:hidden;
+      transition:.2s ease;
+    }
+    .emit-btn:hover{
+      transform:translateY(-2px) rotate(-.5deg);
+      animation:wiggle .45s ease;
+    }
+    .emit-btn::after{
+      content:"";
+      position:absolute;
+      top:-100%;
+      left:-35%;
+      width:30%;
+      height:300%;
+      background:rgba(255,255,255,.28);
+      transform:rotate(24deg);
+      animation:shine 2.6s linear infinite;
+    }
+    @keyframes wiggle{
+      20%{transform:rotate(1.2deg)}
+      40%{transform:rotate(-1.2deg)}
+      60%{transform:rotate(.8deg)}
+      80%{transform:rotate(-.5deg)}
+    }
+    @keyframes shine{
+      0%{left:-50%}
+      60%,100%{left:130%}
+    }
+
+    /* ROLETA */
+    .roulette-modal{
+      position:fixed;
+      inset:0;
+      z-index:100;
+      display:none;
+      place-items:center;
+      padding:20px;
+      background:rgba(29,15,7,.72);
+      backdrop-filter:blur(13px);
+    }
+    .roulette-modal.active{display:grid}
+    .roulette-box{
+      width:min(820px,100%);
+      background:#fff8ec;
+      border-radius:34px;
+      padding:30px;
+      text-align:center;
+      box-shadow:0 40px 120px rgba(0,0,0,.35);
+      animation:modalIn .4s ease;
+      position:relative;
+    }
+    .roulette-box h2{
+      font-size:clamp(2.2rem,5vw,3.7rem);
+      margin:4px 0 6px;
+      line-height:.95;
+    }
+    .roulette-box p{color:var(--muted);margin:0 auto 22px;max-width:590px}
+    .roulette-wrap{
+      display:grid;
+      place-items:center;
+      position:relative;
+      margin:12px auto 24px;
+      width:min(420px,84vw);
+      aspect-ratio:1;
+    }
+    .roulette-pointer{
+      position:absolute;
+      z-index:4;
+      top:-6px;
+      left:50%;
+      transform:translateX(-50%);
+      width:0;height:0;
+      border-left:18px solid transparent;
+      border-right:18px solid transparent;
+      border-top:38px solid var(--ink);
+      filter:drop-shadow(0 5px 4px rgba(0,0,0,.16));
+    }
+    .wheel{
+      position:absolute;
+      inset:0;
+      border-radius:50%;
+      border:10px solid #fff;
+      box-shadow:0 18px 45px rgba(82,43,13,.22), inset 0 0 0 2px rgba(0,0,0,.05);
+      background:conic-gradient(
+        #ffba08 0deg 45deg,
+        #ff5a1f 45deg 90deg,
+        #44b36c 90deg 135deg,
+        #fd7ea3 135deg 180deg,
+        #8f67e8 180deg 225deg,
+        #18a8c7 225deg 270deg,
+        #ef8d32 270deg 315deg,
+        #e14d63 315deg 360deg
+      );
+      transition:transform 5s cubic-bezier(.12,.75,.12,1);
+    }
+    .wheel-label{
+      --angle:0deg;
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:39%;
+      transform-origin:0 50%;
+      transform:rotate(var(--angle)) translateX(43%);
+      z-index:2;
+      pointer-events:none;
+    }
+    .wheel-label span{
+      display:block;
+      text-align:center;
+      font-family:'Baloo 2',sans-serif;
+      font-size:.63rem;
+      line-height:1.02;
+      font-weight:900;
+      color:#fff;
+      text-shadow:0 2px 4px rgba(0,0,0,.22);
+      transform:rotate(calc(var(--angle) * -1));
+    }
+    .label-1{--angle:22.5deg}
+    .label-2{--angle:67.5deg}
+    .label-3{--angle:112.5deg}
+    .label-4{--angle:157.5deg}
+    .label-5{--angle:202.5deg}
+    .label-6{--angle:247.5deg}
+    .label-7{--angle:292.5deg}
+    .label-8{--angle:337.5deg}
+    .wheel-center{
+      position:absolute;
+      z-index:3;
+      width:80px;height:80px;
+      border-radius:50%;
+      background:#fff;
+      display:grid;place-items:center;
+      font-family:'Baloo 2',sans-serif;
+      font-weight:900;
+      color:var(--orange);
+      box-shadow:0 8px 24px rgba(0,0,0,.16);
+      border:4px solid #fff8ec;
+    }
+    .roulette-actions{
+      display:flex;justify-content:center;gap:10px;flex-wrap:wrap
+    }
+    #prizeResult{
+      display:none;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 18px;
+      margin:0 auto 16px;
+      max-width:560px;
+      font-weight:800;
+    }
+    .roulette-close{
+      position:absolute;
+      right:18px;top:18px;
+      width:42px;height:42px;border:0;border-radius:14px;
+      background:#fff;
+      font-size:1.2rem;
+    }
+    .micro{
+      display:block;
+      margin-top:14px;
+      color:#8b776c;
+      font-size:.75rem;
+      line-height:1.5;
+    }
+
+
+    .confetti-layer{
+      position:fixed;
+      inset:0;
+      z-index:130;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .confetti-piece{
+      position:absolute;
+      top:-24px;
+      width:10px;
+      height:16px;
+      border-radius:3px;
+      opacity:.95;
+      animation:confettiFall var(--fall,2.8s) cubic-bezier(.2,.65,.35,1) forwards;
+    }
+    @keyframes confettiFall{
+      0%{
+        transform:translate3d(0,-30px,0) rotate(0deg);
+        opacity:1;
+      }
+      100%{
+        transform:translate3d(var(--drift,0px),105vh,0) rotate(var(--spin,720deg));
+        opacity:.15;
+      }
+    }
+
+    /* MOBILE MENU */
+    .mobile-menu{
+      position:fixed;
+      inset:0;
+      z-index:60;
+      background:#ffd72e;
+      display:none;
+      padding:90px 28px 28px;
+    }
+    .mobile-menu.active{display:block}
+    .mobile-menu nav{all:unset}
+    .mobile-menu .links{
+      display:grid;
+      gap:12px;
+    }
+    .mobile-menu a{
+      font-family:'Baloo 2',sans-serif;
+      font-size:2.5rem;
+      font-weight:800;
+      line-height:1;
+    }
+    .mobile-close{
+      position:absolute;right:22px;top:22px;
+      width:48px;height:48px;border:0;border-radius:15px;
+      background:#fff;font-size:1.3rem;
+    }
+
+    /* REVEAL */
+    .reveal{
+      opacity:0;
+      transform:translateY(22px);
+      transition:.7s ease;
+    }
+    .reveal.visible{
+      opacity:1;
+      transform:none;
+    }
+
+    @media (max-width: 980px){
+      .nav-links,.nav-actions .btn{display:none}
+      .mobile-toggle{display:block}
+      .hero-grid,.about-grid,.compact-intro,.playground-gallery,.location-grid{
+        grid-template-columns:1fr;
+      }
+      .delivery-intro p{justify-self:start}
+      .hero-copy{text-align:center}
+      .hero-copy p{margin-left:auto;margin-right:auto}
+      .hero-actions,.hero-stats{justify-content:center}
+      .hero-visual{min-height:520px}
+      .quick-grid{grid-template-columns:1fr 1fr}
+      .quick-item:nth-child(2){border-right:0}
+      .quick-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+      .order-grid{grid-template-columns:1fr 1fr}
+      .delivery-photo{clip-path:none;max-height:420px}
+      .photo-stack{min-height:520px}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .footer-grid>div:first-child{grid-column:1/-1}
+    }
+
+    @media (max-width: 640px){
+      .section{padding:76px 0}
+      .delivery-section{padding:76px 0 94px}
+      .rodizio-info-grid{grid-template-columns:repeat(2,1fr)}
+      .rodizio-info.taste,.rodizio-info.experience,.rodizio-info.promo,.rodizio-info.surprise{grid-column:span 1}
+      .playground-mini-grid{grid-template-columns:1fr 1fr}
+      .delivery-strip{grid-template-columns:1fr}
+      .delivery-steps{grid-template-columns:repeat(3,1fr)}
+      .playground-gallery{grid-template-columns:repeat(3,1fr)}
+      .play-thumb{height:100px}
+      .playground-head{align-items:flex-start;flex-direction:column;gap:14px}
+      .playground-section{padding:58px 0}
+      .hero{min-height:auto;padding:100px 0 56px}
+      .hero-copy h1{font-size:3.1rem}
+      .hero-visual{min-height:410px}
+      .pizza-photo{border-radius:38px 38px 100px 38px}
+      .fc-1{left:0;top:50px}
+      .fc-2{right:0;bottom:20px}
+      .quick-grid{grid-template-columns:1fr}
+      .quick-item{border-right:0;border-bottom:1px solid var(--line)}
+      .quick-item:nth-child(2){border-bottom:1px solid var(--line)}
+      .quick-item:last-child{border-bottom:0}
+      .about-list{grid-template-columns:1fr}
+      .photo-stack{min-height:440px}
+      .rodizio-perks{grid-template-columns:1fr}
+      .order-grid{grid-template-columns:1fr}
+      .delivery-copy{padding:34px 24px}
+      .play-card{padding:25px}
+      .location-card{padding:24px}
+      .footer-grid{grid-template-columns:1fr}
+      .footer-grid>div:first-child{grid-column:auto}
+      .footer-bottom{flex-direction:column}
+      .form-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .modal-box{padding:20px}
+      .modal-head{align-items:flex-start}
+      .modal-head img{width:92px;height:82px}
+      .roulette-box{padding:24px 16px}
+      .roulette-box h2{padding-right:35px}
+      .wheel-label span{font-size:.53rem}
+      .compact-intro{grid-template-columns:1fr;gap:14px;margin-bottom:22px}
+      .compact-intro p{justify-self:start}
+      .rodizio-info-grid,.playground-mini-grid{grid-template-columns:1fr}
+      .rodizio-info.taste,.rodizio-info.experience,.rodizio-info.promo,.rodizio-info.surprise{grid-column:span 1}
+      .rodizio-info.surprise{
+        width:100%;
+        min-height:0;
+        padding:18px;
+      }
+      .surprise-copy p{max-width:none}
+      .surprise-action{max-width:none}
+      .playground-gallery{grid-template-columns:repeat(3,1fr)}
+      .play-thumb{height:100px}
+      .rodizio{padding:64px 0}
+      #pedido.section{padding-bottom:24px}
+      .delivery-section{padding:10px 0 78px}
+      .delivery-strip{padding:24px 20px}
+      .delivery-steps{grid-template-columns:1fr}
+      .delivery-step{min-height:auto}
+      .playground-section{padding:52px 0}
+      .playground-gallery{grid-template-columns:1fr 1fr}
+      .play-thumb{height:105px}
+      .play-thumb:last-child{grid-column:1 / -1;height:90px}
+      .play-main-image{min-height:190px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Troque somente o número abaixo no JavaScript no final do arquivo -->
+
+  <div class="nav-wrap">
+    <nav>
+      <a class="brand" href="#inicio" aria-label="Brinkalhão Pizzaria">
+        <span class="brand-mark">🍕</span>
+        <span>Brinka<b>lhão</b></span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#sobre">Sobre</a>
+        <a href="#rodizio">Rodízio</a>
+        <a href="#pedido">Pedido Fácil</a>
+        <a href="#playground">Playground</a>
+        <a href="#localizacao">Localização</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="#pedido" class="btn btn-primary">Pedir pizza</a>
+        <button class="mobile-toggle" id="mobileOpen" aria-label="Abrir menu">☰</button>
+      </div>
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">×</button>
+    <div class="links">
+      <a href="#sobre">Sobre</a>
+      <a href="#rodizio">Rodízio</a>
+      <a href="#pedido">Pedido Fácil</a>
+      <a href="#playground">Playground</a>
+      <a href="#localizacao">Localização</a>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">🍕 Fome + diversão = Brinkalhão</div>
+        <h1>O rodízio que deixa a cidade <span class="orange">com água na boca.</span></h1>
+        <p>
+          Pizza saindo do forno, sabores para todos os gostos, ambiente leve para reunir a turma
+          e um playground para os pequenos gastarem energia enquanto você repete a sua favorita.
+        </p>
+        <div class="hero-actions">
+          <a href="#rodizio" class="btn btn-primary">Quero conhecer o rodízio</a>
+          <a href="#pedido" class="btn btn-light">Pedir sem complicação</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>+30</strong><small>sabores no cardápio</small></div>
+          <div class="stat"><strong>20%</strong><small>off para mulheres*</small></div>
+          <div class="stat"><strong>100%</strong><small>clima de “só mais uma”</small></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img class="pizza-photo" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1100&q=88" alt="Pizza artesanal recém saída do forno">
+        <div class="floating-card fc-1">
+          <div class="fc-icon">🔥</div>
+          <strong>Quentinha, sempre.</strong>
+          <span>Do forno para a sua mesa.</span>
+        </div>
+        <div class="floating-card fc-2">
+          <div class="fc-icon">😋</div>
+          <strong>Rodízio sem monotonia.</strong>
+          <span>Clássicas, especiais e doces.</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="sobre">
+    <div class="container about-grid">
+      <div class="photo-stack reveal">
+        <img class="photo-main" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1100&q=88" alt="Pizza servida em mesa">
+        <img class="photo-small" src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=800&q=88" alt="Pizza artesanal">
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">Sobre a Brinkalhão</div>
+        <h2>Pizzaria de verdade. Sem cara de reunião de condomínio.</h2>
+        <p>
+          A Brinkalhão nasceu para ser aquele lugar em que todo mundo encontra um motivo para ficar
+          mais um pouco: pizza boa, atendimento leve, espaço para família, encontro de amigos e
+          aquele clássico “último pedaço” que nunca é realmente o último.
+        </p>
+        <p>
+          Nosso foco é simples: servir bem, criar uma experiência gostosa e transformar um jantar
+          comum em uma noite que rende história.
+        </p>
+
+        <div class="about-list">
+          <div class="item"><span>🔥</span> Forno sempre trabalhando</div>
+          <div class="item"><span>🧀</span> Ingredientes selecionados</div>
+          <div class="item"><span>👨‍👩‍👧‍👦</span> Ambiente para família</div>
+          <div class="item"><span>😄</span> Atendimento sem formalidade</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rodizio" id="rodizio">
+    <div class="container">
+      <div class="compact-intro reveal">
+        <div>
+          <div class="eyebrow">Rodízio Brinkalhão</div>
+          <h2>Pizza passando. Prato esperando.</h2>
+        </div>
+        <p>
+          Uma sequência de sabores salgados e doces para aproveitar sem pressa.
+          Ideal para vir com a família, amigos ou comemorar.
+        </p>
+      </div>
+
+      <div class="rodizio-info-grid">
+        <article class="rodizio-info taste reveal">
+          <div class="mini-icon">🍕</div>
+          <h3>Sabores que não param na primeira fatia</h3>
+          <p>
+            O rodízio mistura clássicos da casa, combinações especiais e opções doces para fechar a noite sem precisar escolher uma pizza só.
+          </p>
+          <div class="rodizio-card-footer">
+            <span class="rodizio-chip">Salgadas</span>
+            <span class="rodizio-chip">Especiais</span>
+            <span class="rodizio-chip">Doces</span>
+          </div>
+        </article>
+
+        <article class="rodizio-info experience reveal">
+          <div class="mini-icon">🔥</div>
+          <h3>Chegou na mesa, é só aproveitar</h3>
+          <p>
+            Pizzas circulando durante a experiência, reposição constante e liberdade para repetir aquele sabor que mereceu uma segunda rodada.
+          </p>
+          <div class="rodizio-card-footer">
+            <span class="rodizio-chip">Sem pressa</span>
+            <span class="rodizio-chip">Pode repetir</span>
+            <span class="rodizio-chip">Mesa cheia</span>
+          </div>
+        </article>
+
+        <article class="rodizio-info promo reveal">
+          <div class="mini-icon">✨</div>
+          <h3>Um motivo a mais para reunir as amigas</h3>
+          <p>
+            De segunda a sexta, mulheres têm 20% de desconto no valor individual do rodízio. Uma condição especial, sem roubar a cena da pizza.
+          </p>
+          <div class="rodizio-card-footer">
+            <span class="promo-line">20% de desconto</span>
+            <span class="rodizio-chip">Dias de semana*</span>
+          </div>
+        </article>
+
+        <article class="rodizio-info surprise reveal">
+          <div class="surprise-box">🎁</div>
+          <div class="surprise-copy">
+            <h3>Tá com sorte hoje?</h3>
+            <p>Abra a Roleta Brinkalhona e descubra qual mimo pode cair para você na sua visita.</p>
+          </div>
+          <button class="surprise-action" id="openRouletteFromRodizio">Quero girar →</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pedido">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Pedido Fácil</div>
+        <h2>Escolha o tamanho e monte a pizza do seu jeito.</h2>
+        <p>
+          Selecione a pizza, escolha seus sabores, informe como deseja receber e envie o pedido
+          direto para o WhatsApp. Simples, rápido e sem cadastro.
+        </p>
+      </div>
+
+      <div class="order-grid">
+        <article class="pizza-card reveal">
+          <span class="tag">Fome educada</span>
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=88" alt="Pizza pequena">
+          <h3>Broto</h3>
+          <p>Para uma pessoa, um lanche caprichado ou para quem jurou que “não estava com tanta fome”.</p>
+          <div class="pizza-meta">
+            <div><small>Até 1 sabor</small><span class="price">R$ 29,90</span></div>
+            <button class="btn btn-primary choose-pizza" data-size="Broto" data-price="29,90" data-flavors="1">Eu quero essa</button>
+          </div>
+        </article>
+
+        <article class="pizza-card reveal">
+          <span class="tag">A queridinha</span>
+          <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=900&q=88" alt="Pizza média">
+          <h3>Média</h3>
+          <p>Boa para dividir em dupla. Ou não dividir. A gente não julga as suas decisões.</p>
+          <div class="pizza-meta">
+            <div><small>Até 2 sabores</small><span class="price">R$ 49,90</span></div>
+            <button class="btn btn-primary choose-pizza" data-size="Média" data-price="49,90" data-flavors="2">Eu quero essa</button>
+          </div>
+        </article>
+
+        <article class="pizza-card reveal">
+          <span class="tag">Modo família</span>
+          <img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=900&q=88" alt="Pizza grande">
+          <h3>Família</h3>
+          <p>Para mesa cheia, conversa longa e aquele pedaço final disputado com argumentos duvidosos.</p>
+          <div class="pizza-meta">
+            <div><small>Até 3 sabores</small><span class="price">R$ 74,90</span></div>
+            <button class="btn btn-primary choose-pizza" data-size="Família" data-price="74,90" data-flavors="3">Eu quero essa</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="delivery-section">
+    <div class="container">
+      <div class="delivery-strip reveal">
+        <div>
+          <div class="eyebrow">Delivery Brinkalhão</div>
+          <h2>Pizza em casa, sem enrolação.</h2>
+        </div>
+
+        <div class="delivery-steps">
+          <div class="delivery-step">
+            <strong>1. Escolha</strong>
+            <span>Tamanho e sabores.</span>
+          </div>
+          <div class="delivery-step">
+            <strong>2. Envie</strong>
+            <span>Pedido pronto no WhatsApp.</span>
+          </div>
+          <div class="delivery-step">
+            <strong>3. Confirme</strong>
+            <span>Prazo e valor com a equipe.</span>
+          </div>
+        </div>
+
+        <a href="#pedido" class="btn btn-light">Fazer pedido</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="playground-section" id="playground">
+    <div class="container">
+      <div class="playground-head reveal">
+        <div>
+          <div class="eyebrow">Espaço Brinkalhinho</div>
+          <h2>Um espaço para eles. Mais tranquilidade para você.</h2>
+        </div>
+        <p>
+          Um cantinho infantil para complementar a experiência de quem vem aproveitar a Brinkalhão em família.
+        </p>
+      </div>
+
+      <div class="playground-gallery reveal">
+        <div class="play-thumb">
+          <img
+            src="https://images.unsplash.com/photo-1780992632886-9f1af7aec50a?auto=format&fit=crop&w=900&q=82"
+            alt="Playground colorido com escorregadores e brinquedos"
+          >
+          <div class="play-callout">Espaço colorido 🎠</div>
+        </div>
+
+        <div class="play-thumb">
+          <img
+            src="https://images.unsplash.com/photo-1781617125142-cad609e52048?auto=format&fit=crop&w=900&q=82"
+            alt="Estrutura moderna de playground com escorregador"
+          >
+        </div>
+
+        <div class="play-thumb">
+          <img
+            src="https://images.unsplash.com/photo-1779406889942-d8142e58855e?auto=format&fit=crop&w=900&q=82"
+            alt="Equipamento amarelo de playground"
+          >
+        </div>
+      </div>
+
+      <div class="playground-mini-grid">
+        <article class="play-mini reveal">
+          <div class="mini-icon">🎠</div>
+          <h3>Diversão por perto</h3>
+          <p>Um espaço dedicado para as crianças aproveitarem durante a visita.</p>
+        </article>
+
+        <article class="play-mini reveal">
+          <div class="mini-icon">👨‍👩‍👧‍👦</div>
+          <h3>Programa em família</h3>
+          <p>Mais conforto para transformar o jantar em um passeio para todo mundo.</p>
+        </article>
+
+        <article class="play-mini reveal">
+          <div class="mini-icon">🎉</div>
+          <h3>Combina com comemoração</h3>
+          <p>Uma opção prática para aniversários, encontros e noites especiais.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="localizacao">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Onde estamos</div>
+        <h2>É fácil achar a Brinkalhão. Difícil é ir embora cedo.</h2>
+      </div>
+
+      <div class="location-grid">
+        <div class="location-card reveal">
+          <h3>Brinkalhão Pizzaria</h3>
+
+          <div class="loc-row">
+            <span>📍</span>
+            <div>
+              <strong>Endereço</strong><br>
+              Av. Principal, 1234 — Centro<br>
+              Sua Cidade - MT
+            </div>
+          </div>
+
+          <div class="loc-row">
+            <span>🕐</span>
+            <div>
+              <strong>Horário</strong><br>
+              Terça a domingo<br>
+              18h às 23h30
+            </div>
+          </div>
+
+          <div class="loc-row">
+            <span>☎️</span>
+            <div>
+              <strong>Reservas e pedidos</strong><br>
+              WhatsApp disponível no botão abaixo.
+            </div>
+          </div>
+
+          <button class="btn btn-whatsapp open-whatsapp">Falar com a Brinkalhão</button>
+        </div>
+
+        <div class="map-placeholder reveal">
+          <div class="map-pin"><span>🍕</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="#inicio">
+            <span class="brand-mark">🍕</span>
+            <span>Brinka<b>lhão</b></span>
+          </a>
+          <p style="max-width:460px;margin-top:16px">
+            Pizza, rodízio, delivery, playground e boas desculpas para juntar todo mundo na mesma mesa.
+          </p>
+        </div>
+        <div>
+          <h4>Explorar</h4>
+          <div class="footer-links">
+            <a href="#sobre">Sobre</a>
+            <a href="#rodizio">Rodízio</a>
+            <a href="#pedido">Pedido Fácil</a>
+          </div>
+        </div>
+        <div>
+          <h4>Brinkalhão</h4>
+          <div class="footer-links">
+            <a href="#playground">Playground</a>
+            <a href="#localizacao">Localização</a>
+            <a href="#" class="open-whatsapp">WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Brinkalhão Pizzaria. Todos os direitos reservados.</span>
+        <span>Feito com fome e algumas fatias de inspiração.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="whatsapp-float open-whatsapp" aria-label="Abrir WhatsApp">☏</button>
+
+  <!-- MODAL PEDIDO -->
+  <div class="modal" id="orderModal">
+    <div class="modal-box">
+      <button class="modal-close" id="orderClose" aria-label="Fechar">×</button>
+
+      <div class="modal-head">
+        <img id="modalPizzaImg" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=500&q=85" alt="">
+        <div>
+          <small style="color:var(--orange);font-weight:800">SEU PEDIDO</small>
+          <h3 id="modalPizzaTitle">Pizza</h3>
+          <p id="modalPizzaPrice">R$ 0,00</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="customerName">Seu nome</label>
+          <input id="customerName" placeholder="Ex.: Júlia">
+        </div>
+
+        <div class="field">
+          <label for="orderType">Como você quer receber?</label>
+          <select id="orderType">
+            <option value="Delivery">Delivery</option>
+            <option value="Retirada">Retirada no balcão</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="flavor1">Sabor 1</label>
+          <select id="flavor1">
+            <option>Calabresa</option>
+            <option>Frango com Catupiry</option>
+            <option>Portuguesa</option>
+            <option>Marguerita</option>
+            <option>Quatro Queijos</option>
+            <option>Brinkalhão Especial</option>
+            <option>Chocolate</option>
+          </select>
+        </div>
+
+        <div class="field full flavor-extra" id="flavor2Wrap">
+          <label for="flavor2">Sabor 2</label>
+          <select id="flavor2">
+            <option>Calabresa</option>
+            <option>Frango com Catupiry</option>
+            <option>Portuguesa</option>
+            <option>Marguerita</option>
+            <option>Quatro Queijos</option>
+            <option>Brinkalhão Especial</option>
+            <option>Chocolate</option>
+          </select>
+        </div>
+
+        <div class="field full flavor-extra" id="flavor3Wrap">
+          <label for="flavor3">Sabor 3</label>
+          <select id="flavor3">
+            <option>Calabresa</option>
+            <option>Frango com Catupiry</option>
+            <option>Portuguesa</option>
+            <option>Marguerita</option>
+            <option>Quatro Queijos</option>
+            <option>Brinkalhão Especial</option>
+            <option>Chocolate</option>
+          </select>
+        </div>
+
+        <div class="field full" id="addressWrap">
+          <label for="customerAddress">Endereço de entrega</label>
+          <input id="customerAddress" placeholder="Rua, número, bairro e referência">
+        </div>
+
+        <div class="field full">
+          <label for="orderNotes">Algum detalhe para a cozinha?</label>
+          <textarea id="orderNotes" rows="3" placeholder="Ex.: sem cebola, borda de catupiry..."></textarea>
+        </div>
+      </div>
+
+      <button class="emit-btn" id="emitOrder">🚀 Emitir pedido antes que a fome aumente</button>
+      <small class="micro">O botão abre o WhatsApp com as informações preenchidas. O pedido só é confirmado após atendimento da pizzaria.</small>
+    </div>
+  </div>
+
+  <!-- ROLETA -->
+  <div class="roulette-modal" id="rouletteModal">
+    <div class="roulette-box">
+      <button class="roulette-close" id="rouletteClose" aria-label="Fechar">×</button>
+      <div class="eyebrow">🎁 Roleta Brinkalhona</div>
+      <h2>Antes de pedir… bora testar a sorte?</h2>
+      <p>
+        Gire a roleta e descubra seu mimo. O prêmio é válido em consumação mínima de
+        <strong>R$ 200,00</strong>, conforme disponibilidade da casa.
+      </p>
+
+      <div class="roulette-wrap">
+        <div class="roulette-pointer"></div>
+        <div class="wheel" id="wheel">
+          <span class="wheel-label label-1"><span>DRINK<br>SEM ÁLCOOL</span></span>
+          <span class="wheel-label label-2"><span>PIZZA<br>BROTINHO</span></span>
+          <span class="wheel-label label-3"><span>SOBREMESA</span></span>
+          <span class="wheel-label label-4"><span>DRINK<br>DA CASA</span></span>
+          <span class="wheel-label label-5"><span>REFRI<br>LATA</span></span>
+          <span class="wheel-label label-6"><span>BORDA<br>RECHEADA</span></span>
+          <span class="wheel-label label-7"><span>FRITAS<br>PEQUENA</span></span>
+          <span class="wheel-label label-8"><span>BROWNIE</span></span>
+        </div>
+        <div class="wheel-center">GIRA!</div>
+      </div>
+
+      <div id="prizeResult"></div>
+
+      <div class="roulette-actions">
+        <button class="btn btn-primary" id="spinBtn">Girar a roleta</button>
+        <button class="btn btn-light" id="skipRoulette">Agora não, minha fome venceu</button>
+      </div>
+
+      <small class="micro">
+        Promoção ilustrativa. Recomenda-se configurar regulamento, validade, faixa etária para bebidas alcoólicas e condições de resgate antes da publicação.
+      </small>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // CONFIGURAÇÃO RÁPIDA
+    // Substitua pelo WhatsApp real da pizzaria, com DDI + DDD.
+    // Exemplo Cuiabá: 5565999999999
+    // ============================================================
+    const WHATSAPP_NUMBER = "5565999999999";
+
+    const body = document.body;
+
+    // MOBILE
+    const mobileMenu = document.getElementById('mobileMenu');
+    document.getElementById('mobileOpen').addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      body.classList.add('modal-open');
+    });
+
+    function closeMobile(){
+      mobileMenu.classList.remove('active');
+      body.classList.remove('modal-open');
+    }
+
+    document.getElementById('mobileClose').addEventListener('click', closeMobile);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobile));
+
+    // REVEAL
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // WHATSAPP GENÉRICO
+    function openWhatsapp(message = "Olá, Brinkalhão! Quero saber mais sobre o rodízio e fazer um pedido 🍕"){
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    document.querySelectorAll('.open-whatsapp').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openWhatsapp();
+      });
+    });
+
+    // PEDIDO
+    const orderModal = document.getElementById('orderModal');
+    const orderClose = document.getElementById('orderClose');
+    const orderType = document.getElementById('orderType');
+    const addressWrap = document.getElementById('addressWrap');
+    const flavor2Wrap = document.getElementById('flavor2Wrap');
+    const flavor3Wrap = document.getElementById('flavor3Wrap');
+
+    let selectedPizza = {
+      size: '',
+      price: '',
+      flavors: 1
+    };
+
+    document.querySelectorAll('.choose-pizza').forEach((button, index) => {
+      button.addEventListener('click', () => {
+        selectedPizza = {
+          size: button.dataset.size,
+          price: button.dataset.price,
+          flavors: Number(button.dataset.flavors)
+        };
+
+        const card = button.closest('.pizza-card');
+        const imageSrc = card.querySelector('img').src;
+
+        document.getElementById('modalPizzaTitle').textContent = `Pizza ${selectedPizza.size}`;
+        document.getElementById('modalPizzaPrice').textContent = `R$ ${selectedPizza.price}`;
+        document.getElementById('modalPizzaImg').src = imageSrc;
+
+        flavor2Wrap.style.display = selectedPizza.flavors >= 2 ? 'grid' : 'none';
+        flavor3Wrap.style.display = selectedPizza.flavors >= 3 ? 'grid' : 'none';
+
+        orderModal.classList.add('active');
+        body.classList.add('modal-open');
+      });
+    });
+
+    function closeOrder(){
+      orderModal.classList.remove('active');
+      body.classList.remove('modal-open');
+    }
+
+    orderClose.addEventListener('click', closeOrder);
+    orderModal.addEventListener('click', (e) => {
+      if(e.target === orderModal) closeOrder();
+    });
+
+    orderType.addEventListener('change', () => {
+      addressWrap.style.display = orderType.value === 'Delivery' ? 'grid' : 'none';
+    });
+
+    document.getElementById('emitOrder').addEventListener('click', () => {
+      const name = document.getElementById('customerName').value.trim() || 'Cliente';
+      const type = orderType.value;
+      const address = document.getElementById('customerAddress').value.trim();
+      const notes = document.getElementById('orderNotes').value.trim();
+
+      const flavors = [
+        document.getElementById('flavor1').value
+      ];
+
+      if(selectedPizza.flavors >= 2) flavors.push(document.getElementById('flavor2').value);
+      if(selectedPizza.flavors >= 3) flavors.push(document.getElementById('flavor3').value);
+
+      if(type === 'Delivery' && !address){
+        document.getElementById('customerAddress').focus();
+        alert('Ei, Sherlock da pizza 😄 Falta o endereço para a gente saber onde entregar!');
+        return;
+      }
+
+      const lines = [
+        `🍕 *NOVO PEDIDO - BRINKALHÃO*`,
+        ``,
+        `👤 *Cliente:* ${name}`,
+        `📦 *Pedido:* Pizza ${selectedPizza.size}`,
+        `💰 *Valor base:* R$ ${selectedPizza.price}`,
+        `🧀 *Sabores:* ${flavors.join(' / ')}`,
+        `🛵 *Tipo:* ${type}`,
+        type === 'Delivery' ? `📍 *Endereço:* ${address}` : `📍 *Retirada:* no balcão`,
+        notes ? `📝 *Observações:* ${notes}` : `📝 *Observações:* nenhuma`,
+        ``,
+        `Pode confirmar disponibilidade, valor final e prazo para mim?`
+      ];
+
+      openWhatsapp(lines.join('\n'));
+    });
+
+    // ROLETA
+    const rouletteModal = document.getElementById('rouletteModal');
+    const rouletteClose = document.getElementById('rouletteClose');
+    const skipRoulette = document.getElementById('skipRoulette');
+    const spinBtn = document.getElementById('spinBtn');
+    const wheel = document.getElementById('wheel');
+    const prizeResult = document.getElementById('prizeResult');
+
+    const prizes = [
+      '1 Drink sem álcool',
+      '1 Pizza brotinho',
+      '1 Sobremesa da casa',
+      '1 Drink da casa',
+      '1 Refrigerante em lata',
+      '1 Borda recheada',
+      '1 Porção pequena de fritas',
+      '1 Brownie'
+    ];
+
+    const rouletteSectorCount = prizes.length;
+    const rouletteSectorAngle = 360 / rouletteSectorCount;
+
+    let hasSpun = false;
+    let currentRotation = 0;
+
+    function launchConfetti(){
+      const layer = document.createElement('div');
+      layer.className = 'confetti-layer';
+
+      const confettiColors = ['#ff4d00','#ffd72e','#17b26a','#fd7ea3','#8f67e8','#18a8c7'];
+
+      for(let i = 0; i < 90; i++){
+        const piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        piece.style.setProperty('--fall', `${2.2 + Math.random() * 1.8}s`);
+        piece.style.setProperty('--drift', `${-130 + Math.random() * 260}px`);
+        piece.style.setProperty('--spin', `${360 + Math.random() * 1080}deg`);
+        piece.style.animationDelay = `${Math.random() * .28}s`;
+        piece.style.width = `${7 + Math.random() * 7}px`;
+        piece.style.height = `${9 + Math.random() * 10}px`;
+        layer.appendChild(piece);
+      }
+
+      document.body.appendChild(layer);
+      setTimeout(() => layer.remove(), 4400);
+    }
+
+    function openRoulette(){
+      rouletteModal.classList.add('active');
+      body.classList.add('modal-open');
+    }
+
+    function resetRoulette(){
+      hasSpun = false;
+      spinBtn.disabled = false;
+      spinBtn.textContent = 'Girar a roleta';
+      spinBtn.onclick = null;
+      prizeResult.style.display = 'none';
+      prizeResult.innerHTML = '';
+    }
+
+    const rodizioRouletteButton = document.getElementById('openRouletteFromRodizio');
+    if(rodizioRouletteButton){
+      rodizioRouletteButton.addEventListener('click', () => {
+        resetRoulette();
+        openRoulette();
+      });
+    }
+
+    function closeRoulette(){
+      rouletteModal.classList.remove('active');
+      body.classList.remove('modal-open');
+      sessionStorage.setItem('brinkalhaoRouletteSeen', '1');
+    }
+
+    rouletteClose.addEventListener('click', closeRoulette);
+    skipRoulette.addEventListener('click', closeRoulette);
+
+    spinBtn.addEventListener('click', () => {
+      if(hasSpun) return;
+      hasSpun = true;
+      spinBtn.disabled = true;
+      spinBtn.textContent = 'A pizza da sorte está girando...';
+
+      const winner = Math.floor(Math.random() * rouletteSectorCount);
+
+      /*
+       * A roleta começa no topo (0°) e cresce no sentido horário.
+       * O centro visual do setor vencedor é:
+       * winner * setor + metade do setor.
+       * Para esse centro terminar exatamente no ponteiro do topo,
+       * a roleta precisa finalizar no ângulo inverso desse valor.
+       *
+       * Também compensamos a rotação atual para que funcione corretamente
+       * mesmo quando a roleta é aberta e girada novamente.
+       */
+      const sectorCenter = winner * rouletteSectorAngle + rouletteSectorAngle / 2;
+      const desiredRotation = (360 - sectorCenter) % 360;
+      const normalizedCurrent = ((currentRotation % 360) + 360) % 360;
+      const correction = (desiredRotation - normalizedCurrent + 360) % 360;
+      const extraSpins = 6 * 360;
+
+      currentRotation += extraSpins + correction;
+      wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+      setTimeout(() => {
+        prizeResult.style.display = 'block';
+        prizeResult.innerHTML = `🎉 Você ganhou: <strong>${prizes[winner]}</strong>!<br><small>Válido em consumação mínima de R$ 200,00, conforme regras da casa.</small>`;
+        spinBtn.textContent = 'Prêmio garantido! Agora bora de pizza 🍕';
+        launchConfetti();
+
+        spinBtn.disabled = false;
+        spinBtn.onclick = () => {
+          closeRoulette();
+          document.getElementById('pedido').scrollIntoView({ behavior: 'smooth' });
+        };
+      }, 5200);
+    });
+
+    // Abre automaticamente uma vez por sessão.
+    window.addEventListener('load', () => {
+      if(!sessionStorage.getItem('brinkalhaoRouletteSeen')){
+        setTimeout(openRoulette, 850);
+      }
+    });
+
+    // ESC fecha modais
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape'){
+        closeOrder();
+        if(rouletteModal.classList.contains('active')) closeRoulette();
+        if(mobileMenu.classList.contains('active')) closeMobile();
+      }
+    });
+  </script>
+</body>
+</html>
